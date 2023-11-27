@@ -48,6 +48,12 @@ To execute, run _main.py_.
 
 All output figures will be saved in the folder _plots_.
 
+
+| ![whole_dataset_detail.pdf](tasks/plots/whole_dataset_detail.pdf) | 
+|:--:| 
+| *A detail of the dataset.* |
+
+
 ## Code commentary
 <a name="commentary"></a>
 
@@ -131,7 +137,7 @@ The Graph Attention Network is trained with PyTorch Geometric.
 
 #### Setup
 
-- **Epochs:** 51.
+- **Epochs:** 60.
 - **Class Weights:** necessary due to the class inbalance; a total of 27961 nodes are labelled by "0", and 9739 by "1", meaning a 2.871:1 ratio in the set.
 - **3-Fold Approach**: the parameters that are chosen for the model are those that minimize the loss on the validation set; their performance will be evaluated on the testing set.
 - **Optimizer:** Adam algorithm, with a learning rate of 0.01 and weight decay of 5e-4, is used for stochastic gradient descent.
@@ -153,8 +159,3 @@ The model has successfully learned to distinguish between the two classes, demon
 ## References
 <a name="references"></a>
 [1]: Benedek Rozemberczki, Carl Allen, Rik Sarkar. (2019). "Multi-scale Attributed Node Embedding." [arXiv:1909.13021](https://arxiv.org/abs/1909.13021). [GitHub Repository](https://github.com/benedekrozemberczki/MUSAE).
-
-
-| ![whole_dataset_detail.pdf](tasks/plots/whole_dataset_detail.pdf) | 
-|:--:| 
-| *A detail of the dataset.* |
