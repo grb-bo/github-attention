@@ -57,7 +57,7 @@ All output figures will be saved in the folder _plots_.
 
 ### **Dataset Examination: Graph Properties Analysis**
 
-The first step after data loading is a brief analysis of the dataset through its graph representation.
+The first step is analysing the dataset through its graph representation.
 
 
 #### Basic properties
@@ -121,7 +121,7 @@ In this code, the network hyperparameters are fine-tuned with respect to the *va
 
 While a general Graph Neural Network processes graph-structured data, a *Graph Attention Network* does so through the **attention mechanism**.
 
-This model is composed of 3 attention-based layers with a varying numbers of attention heads, which are **indipendent** ways of aggregate information between nodes during the message passing. During training the layers learn to optimize how much "importance" each node gives to neighboring nodes, fine-tuning the attention weights. More heads means that the model is examining different aspects of the neighborhood at the same time. More layers means that the influence of more distant (_k_-adjacent) nodes is being examined.
+This model is composed of 3 attention-based layers with a varying numbers of attention heads, which are **indipendent** ways of aggregating information between nodes during the message passing. During training the layers learn to optimize how much "importance" each node gives to neighboring nodes, fine-tuning the attention weights. More heads means that the model is examining different aspects of the neighborhood at the same time. More layers means that the influence of more distant (_k_-adjacent) nodes is being examined.
 
 As previously stated, the input of the model are the nodes features, which get processed through message passing.
 
@@ -138,7 +138,7 @@ The Graph Attention Network is trained with PyTorch Geometric.
 - **Epochs:** 60.
 - **Class Weights:** necessary due to the class inbalance; a total of 27961 nodes are labelled by "0", and 9739 by "1", meaning a 2.871:1 ratio in the set.
 - **3-Fold Approach**: the parameters that are chosen for the model are those that minimize the loss on the validation set; their performance will be evaluated on the testing set.
-- **Optimizer:** Adam algorithm, with a learning rate of 0.01 and weight decay of 5e-4, is used for stochastic gradient descent.
+- **Optimizer:** Adam algorithm, with a learning rate of 0.01 and weight decay of 5e-4, is used for gradient descent.
 
 #### Training Loop
 
