@@ -1,7 +1,7 @@
 # **An Attention For GitHub**
 _A Graph Attention Network for the GitHub Dataset_
 
-| ![whole_graph.pdf](tasks/plots/whole_graph.pdf) | 
+| ![whole_graph](tasks/plots/whole_graph.jpg) | 
 |:--:| 
 | *The whole GitHub dataset, visualized as a graph in the Spring layout; nodes are colored accordingly to the community detected by the Louvain method.* |
 
@@ -49,7 +49,7 @@ To execute, run _main.py_.
 All output figures will be saved in the folder _plots_.
 
 
-| ![whole_dataset_detail.pdf](tasks/plots/whole_dataset_detail.pdf) | 
+| ![whole_dataset_detail](tasks/plots/whole_dataset_detail.jpg) | 
 |:--:| 
 | *A detail of the dataset.* |
 
