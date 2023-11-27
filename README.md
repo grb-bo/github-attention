@@ -50,9 +50,6 @@ To execute, run _main.py_.
 All output figures will be saved in the folder _plots_.
 
 
-![whole_dataset_detail](tasks/plots/whole_dataset_detail.jpg)
-
-
 ## Code commentary
 <a name="commentary"></a>
 
