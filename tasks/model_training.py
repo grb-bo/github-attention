@@ -73,7 +73,7 @@ def model_training(graph, node_labels):
     # Instantiating the GNN
     #-----------------------------
 
-    model = GATNet()
+    model = GATNet(torch.nn.Module)
 
 
     #-----------------------------
