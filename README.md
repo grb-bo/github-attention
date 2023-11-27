@@ -85,10 +85,10 @@ This can aid the visualization of a graph, when nodes belonging to the given com
 
 Aleatory factors play an important role when dealing with a community-finding algorithm, so the number of *detected* communities is subject to statistical fluctuation. For the GitHub dataset, it is around ~**35-39**.
 
-#### Local Cluster Coefficients
-Cluster coefficients tell if the neighbours of a node are also connected to each other. It is the most local indicator of density: a lower cluster coefficients implies that the node is less likely to be in a (local neighbourhood) group.  
+#### Local Clustering Coefficients
+Clustering coefficients tell if the neighbours of a node are also connected to each other. It is the most local indicator of density: a lower clustering coefficients implies that the node is less likely to be in a (local neighbourhood) group.  
 
-Both classes of this dataset exhibit a moderate clustering average, but it is evident that machine learning developers tend to cluster *less* than web developers.
+Both classes of this dataset exhibit a moderate clustering average, but it is evident that machine learning developers tend to clustering *less* than web developers.
 
 #### Degrees
 The degree of a node is the count of how many links it has to other nodes.
@@ -97,8 +97,8 @@ In the GitHub dataset, the number of nodes having a specific degree follow an ex
 
 While most nodes in the network have a relatively limited number of edges, a smaller subset of nodes (usually called *hubs*) exhibit an important network of connections. Some of the developers in the GitHub dataset are therefore acting as hubs of connections.
 
-#### Local Cluster Coefficients vs Degrees
-The average neighbour degree distribution links two of their fundamental parameters: the cluster coefficients and the degrees.
+#### Local Clustering Coefficients vs Degrees
+The average neighbour degree distribution links two of their fundamental parameters: the clustering coefficients and the degrees.
 
 Plotting it for the GitHub dataset highlights how, in this dataset, nodes with lower degree tend to have a higher clustering coefficient. Developers with many connections will connect to developers that are more likely to not interact with each other; the less connected nodes instead are more likely to connect to nodes that share edges between themselves (higher _clustering_ behaviour).
 
