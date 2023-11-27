@@ -1,0 +1,8 @@
+# Set true in order to analyse the GitHub dataset
+dataset_analysis: true
+
+# Set true in order to train the graph attention network
+model_training: true
+
+# Set true in order to evaluate the graph attention network
+model_evaluation: true
