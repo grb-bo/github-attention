@@ -1,3 +1,14 @@
+import os
+import json
+import numpy as np
+import torch
+from torch_geometric.nn import GATConv
+from torch_geometric.utils import from_networkx
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import pickle
+
 #-----------------------------
 # The model class
 #-----------------------------
@@ -5,9 +16,9 @@
 class GATNet(torch.nn.Module):
     def __init__(self):
         super(GATNet, self).__init__()
-        self.conv1 = GATConv(data.num_node_features, 32, heads=2)  # 2 attention heads
-        self.conv2 = GATConv(32*2, 16, heads=2)                    # 2 attention heads
-        self.conv3 = GATConv(16*2, 2, heads=1)                     # 1 attention head
+        self.conv1 = GATConv(4005, 32, heads=2) # 4005 = num_node_features   # 2 attention heads
+        self.conv2 = GATConv(32*2, 16, heads=2)                             # 2 attention heads
+        self.conv3 = GATConv(16*2, 2, heads=1)                              # 1 attention head
 
     def forward(self, data):
         x, edge_index = data.x, data.edge_index
@@ -21,19 +32,47 @@ class GATNet(torch.nn.Module):
         x = self.conv3(x, edge_index)
 
         return F.log_softmax(x, dim=1)
-    
+
 
 def model_training(graph, node_labels):
 
-    print("Preparing the data to set up the model.")
+    print("\nPreparing the data to set up the model...")
 
-    plotsdir = 'plots/model_training'
+    plotsdir = 'tasks/plots/model_training'
     if not os.path.exists(plotsdir):
         os.makedirs(plotsdir)
 
-    modeldir = 'model_parameters'
+    modeldir = 'tasks/model_parameters'
     if not os.path.exists(modeldir):
         os.makedirs(modeldir)
+
+
+    #-----------------------------
+    # Loading features
+    #-----------------------------
+
+    # Extracting features from json
+    features_file = "tasks/data/git_features.json"
+    features_dict = {}
+    with open(features_file, "r") as file:
+        features_dict = json.load(file)
+
+    # One-hot encoding for the features
+    num_nodes = len(features_dict)
+    all_features_list=[]
+    for node in range(num_nodes):
+        all_features_list += features_dict[str(node)]
+
+    max_feature = max(all_features_list)
+
+    encoded_features_dict={}
+    for node in range(num_nodes):
+        node = str(node)
+        encoded_features = np.array([0] * (max_feature + 1))
+        node_features = features_dict[str(node)]
+        encoded_features[node_features] = 1
+        encoded_features_dict[node] = list(encoded_features)
+
 
     #-----------------------------
     # PyTorch Geometric tensors
@@ -50,6 +89,7 @@ def model_training(graph, node_labels):
     #-----------------------------
     # 3-Fold data splitting
     #-----------------------------
+    print("\nShuffling and splitting the data...") 
 
     # Data shuffling & splitting into three sets (60% training, 20% validation, 20% test)
     indices = torch.arange(data.num_nodes) # Array of indices
@@ -73,13 +113,13 @@ def model_training(graph, node_labels):
     # Instantiating the GNN
     #-----------------------------
 
-    model = GATNet(torch.nn.Module)
+    model = GATNet()
 
 
     #-----------------------------
     # Training
     #-----------------------------
-    Print("Training the model.")
+    print("\nTraining the model.")
 
     n_epochs = 60
 
@@ -135,12 +175,13 @@ def model_training(graph, node_labels):
     plt.ylabel('Loss')
     plt.title('Loss as a function of epochs')
     plt.legend()
-    plt.show()
     plt.savefig(f"{plotsdir}/Losses.pdf")
+    plt.show()
+    print("")
     print(f"Best validation loss occoured at epoch: {best_epoch}")
     print(f"Training plot has been saved in folder: {plotsdir}")
     print(f"Best model has been saved in folder: {modeldir}")
 
     # Saving the files for model_evaluation
-    with open('data/data_and_masks.pkl', 'wb') as f:
+    with open(f"{modeldir}/data_and_masks.pkl", 'wb') as f:
         pickle.dump((data, masks, masks_testing), f)

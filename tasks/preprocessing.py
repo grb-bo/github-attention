@@ -1,3 +1,7 @@
+import numpy as np
+import json
+import networkx as nx
+
 def preprocessing():
     """
     - Creates a graph representing the GitHub dataset.
@@ -18,7 +22,7 @@ def preprocessing():
     print("Loading data and creating the graph.")
 
     # Load node labels
-    labels_file = "data/git_targets.txt"
+    labels_file = "tasks/data/git_targets.txt"
     nodes = []
     node_labels = {}  # Dictionary with nodes as keys and corresponding label as value
     with open(labels_file, "r") as file:
@@ -29,7 +33,7 @@ def preprocessing():
             nodes.append(node)
 
     # Load edges
-    edges_file = "data/git_edges.txt"
+    edges_file = "tasks/data/git_edges.txt"
     edges = []
     with open(edges_file, "r") as file:
         next(file)
@@ -37,27 +41,6 @@ def preprocessing():
             node1, node2 = map(str, line.strip().split(","))
             edges.append((node1, node2))
 
-    # Load features
-    features_file = "data/git_features.json"
-    features_dict = {}
-    with open(features_file, "r") as file:
-        features_dict = json.load(file)
-
-    # One-hot encoding for the features
-    num_nodes = len(features_dict)
-    all_features_list=[]
-    for node in range(num_nodes):
-        all_features_list += features_dict[str(node)]
-
-    max_feature = max(all_features_list)
-
-    encoded_features_dict={}
-    for node in range(num_nodes):
-        node = str(node)
-        encoded_features = np.array([0] * (max_feature + 1))
-        node_features = features_dict[str(node)]
-        encoded_features[node_features] = 1
-        encoded_features_dict[node] = list(encoded_features)
 
     #-----------------------------
     # Graph creation

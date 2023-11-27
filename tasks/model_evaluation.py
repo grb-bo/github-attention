@@ -1,22 +1,34 @@
+import numpy as np
+import os
+import seaborn as sns
+import torch
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score
+import pickle
+from tasks.model_training import GATNet
+
+
 def model_evaluation():
 
     #-----------------------------
     # Setup
     #-----------------------------
 
-    print("Evaluating the model.")
+    print("\nEvaluating the model.\n")
 
-    plotsdir = 'plots/model_evaluation'
+    plotsdir = 'tasks/plots/model_evaluation'
     if not os.path.exists(plotsdir):
         os.makedirs(plotsdir)
 
-    modeldir = 'model_parameters'
+    modeldir = 'tasks/model_parameters'
     model_file = "{}/best_model_params.pth".format(modeldir)
     assert os.path.exists(model_file), "File of model's parameters not found. Either: train the model via setting <model_training: true> in config.yalm, or make sure that the path of the model (<model_file>) is correct in model_evaluation.py"
 
-    datafile = "data/data_and_masks.pkl"
+    datafile = f"{modeldir}/data_and_masks.pkl"
     assert os.path.exists(datafile), "Data file not found. Either: set <model_training: true> in config.yalm and re-run main.py, or make sure that the path of the data (<datafile>) is correct in model_evaluation.py"
-    with open('data/data_and_masks.pkl', 'rb') as f:
+    with open(datafile, 'rb') as f:
         data, masks, masks_testing = pickle.load(f)
 
 
@@ -25,11 +37,11 @@ def model_evaluation():
     #-----------------------------
 
     # Loading the model with lowest validation loss
-    best_model = model_training.GATNet()
+    best_model = GATNet()
     best_model.load_state_dict(torch.load(model_file))
 
     # Evaluating the best model & extracting the arrays for the metrics: true classes, predicted classes, probabilities of Class 1
-    model.eval()
+    best_model.eval()
     with torch.no_grad():
         output = best_model(data)
         probs, pred = output.max(dim=1)
@@ -41,12 +53,11 @@ def model_evaluation():
     out_probs = softmax_output[:, 1].cpu().detach().numpy() # Probabilities of Class 1
     #out_probs = output[:, 1].cpu().detach().numpy()   # Probabilities of Class 1 (when final activation function is not log)
 
-    print("Output:")
-    print(output)
-    print("\nTrue classes - Predicted classes - Probabilities of Class 1:")
+    print("True classes - Predicted classes - Probabilities of Class 1:")
     print(y_true)
     print(y_pred)
     print(out_probs)
+    print("")
 
 
     #-----------------------------
@@ -66,7 +77,7 @@ def model_evaluation():
     print('Precision: {:.3f}'.format(precision))
     print('Recall: {:.3f}'.format(recall))
     print('F1 Score: {:.3f}'.format(f1))
-
+    print("")
 
     #-----------------------------
     # Normalized Confusion Matrix
@@ -88,8 +99,8 @@ def model_evaluation():
         plt.xlabel('Predicted')
         plt.ylabel('True')
         plt.title(f'Confusion Matrix - {dataset_name}')
-        plt.show()
         plt.savefig(f"{plotsdir}/Conf_matrix_{dataset_name}.pdf")
+        plt.show()
 
     #-----------------------------
     # ROC curve and AUC
@@ -107,9 +118,8 @@ def model_evaluation():
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
-    plt.show()
     plt.savefig(f"{plotsdir}/ROC.pdf")
-
+    plt.show()
 
     #-----------------------------
     # Histogram of Output Scores
@@ -130,7 +140,8 @@ def model_evaluation():
     plt.title('Histogram of Predictions')
     plt.xlabel('Prediction Probability')
     plt.ylabel('Normalized Count')
-    plt.legend()
-    plt.show()
+    plt.legend(loc='upper center')
     plt.savefig(f"{plotsdir}/Classifier.pdf")
+    plt.show()
     print(f"Plots have been saved in folder: {plotsdir}")
+    print("")

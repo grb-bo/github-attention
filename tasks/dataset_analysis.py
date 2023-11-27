@@ -1,3 +1,10 @@
+import numpy as np
+import os
+import networkx as nx
+import matplotlib.pyplot as plt
+
+
+
 def get_clustering_coefficient(label_value, clustering_coefficients_dict, node_labels):
     """
     - Selects the clustering coefficients belonging to a given class
@@ -45,7 +52,7 @@ def evaluate_clustering_coefficients(coefficient_labels, threshold=0.1, bins=20)
         Plot of the clustering coefficients of the dataset    
     """
 
-    print("\nProportion of nodes within {} cluster coefficient:".format(threshold))
+    print("Proportion of nodes within {} clustering coefficient:".format(threshold))
     print("Class\tNodes\tPercentage wrt whole class")
     average_clustering_coefficient = {}
     j = 0
@@ -54,7 +61,7 @@ def evaluate_clustering_coefficients(coefficient_labels, threshold=0.1, bins=20)
         total_nodes = len(coefficients)
         nodes_in_range = sum(1 for coef in coefficients if coef <= threshold)
         percentage = (nodes_in_range / total_nodes) * 100
-        print("{}\t\t{}\t{:.2f}%".format(label, nodes_in_range, percentage))
+        print("{}\t{}\t{:.2f}%".format(label, nodes_in_range, percentage))
         histtype = "step" if j == 0 else "stepfilled"
         j=j+1
         plt.hist(coefficients, bins=bins, alpha=0.5, label='Class {}'.format(label), linewidth=3, histtype=histtype, density= True)
@@ -73,17 +80,18 @@ def evaluate_clustering_coefficients(coefficient_labels, threshold=0.1, bins=20)
 
 def dataset_analysis(graph, node_labels):
 
-    plotsdir = 'plots/dataset_analysis'
+    plotsdir = 'tasks/plots/dataset_analysis'
     if not os.path.exists(plotsdir):
         os.makedirs(plotsdir)
 
-    datadir = 'data'
+    datadir = 'tasks/data'
     if not os.path.exists(datadir):
         os.makedirs(datadir)
 
     #-----------------------------
     # Dataset examination
     #-----------------------------
+    print("\nExamining the dataset:\n")
 
     # Graph statistics
     print("Number of nodes (graph order):", graph.number_of_nodes())
@@ -110,8 +118,6 @@ def dataset_analysis(graph, node_labels):
     weights_list = []
     for label in sorted(normalized_label_weights.keys()):
         weights_list.append(normalized_label_weights[label])
-    print("\nWeights List:")
-    print(weights_list)
 
     # Connected components in the graph
     components = list(nx.connected_components(graph))
@@ -152,6 +158,7 @@ def dataset_analysis(graph, node_labels):
     mean_coefficients = [np.mean([clustering_coefficients_all[i] for i in range(len(degrees_all)) if degrees_all[i] == deg]) for deg in unique_degrees]
     display_coefficients = [mean_coefficients[i] for i, degree in enumerate(unique_degrees) if degree in display_degrees]
 
+    plt.figure()
     plt.scatter(degrees_all, clustering_coefficients_all, color="red", alpha=0.5, s=0.5)
     plt.plot(display_degrees, display_coefficients, color="blue", linestyle="-", linewidth=0.3, label='Average')
     plt.title("Average Neighbour Degree Distribution")
@@ -164,6 +171,6 @@ def dataset_analysis(graph, node_labels):
     plt.ylim(bottom=0.005)
     plt.ylim(top=1.05)
     plt.legend()
-    plt.show()
     plt.savefig(f"{plotsdir}/Degree_vs_clustering.pdf")
+    plt.show()
     print(f"Plots have been saved in folder: {plotsdir}")
