@@ -15,7 +15,7 @@ _A Graph Attention Network for the GitHub Dataset_
 <a name="introduction"></a>
 The **GitHub Social Network** is a large dataset of developers who have starred at least 10 repositories, describing the connections between them. The members are labelled as *web* or *machine learning* developers, and their relations in the dataset correspond to mutual following on the website.
 
-The dataset was collected from the wesite public API by the by the MUSAE project in 2019 [1].
+The dataset was collected from the website public API by the by the MUSAE project in 2019 [1].
 
 Given that the dataset has a network structure and given that the data are classified in a binary way, the GitHub dataset is particularly suited to be studied through a **graph neural network** with **attention mechanism**, one of the most promising areas of research in the field of machine learning.
 
