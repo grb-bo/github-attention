@@ -5,3 +5,5 @@ tasks/model_parameters/*
 plots/dataset_analysis/*
 plots/model_evaluation/*
 data/*.pkl
+.DS_Store
+__pycache__
