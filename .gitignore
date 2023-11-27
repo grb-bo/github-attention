@@ -2,8 +2,9 @@
 ._*
 !/.gitignore
 tasks/model_parameters/*
-plots/dataset_analysis/*
-plots/model_evaluation/*
+tasks/plots/dataset_analysis/*
+tasks/plots/model_training/*
+tasks/plots/model_evaluation/*
 data/*.pkl
 .DS_Store
 */.DS_Store
