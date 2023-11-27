@@ -133,10 +133,10 @@ def model_evaluation():
 
     # Plotting
     plt.figure()
-    plt.hist(out_probs_test_0, bins=20, alpha=0.5, label='Class 0 (Testing)', weights=[1]*len(out_probs_test_0), density=True, color='red')
-    plt.hist(out_probs_test_1, bins=20, alpha=0.5, label='Class 1 (Testing)', weights=[2.871]*len(out_probs_test_1), density=True, color='blue')
-    plt.hist(out_probs_train_0, bins=20, alpha=0.5, label='Class 0 (Training)', weights=[1]*len(out_probs_train_0), density=True, color='darkred', histtype='step', linewidth=2, linestyle="--")
-    plt.hist(out_probs_train_1, bins=20, alpha=0.5, label='Class 1 (Training)', weights=[2.871]*len(out_probs_train_1), density=True, color='midnightblue', histtype='step', linewidth=2, linestyle="--")
+    plt.hist(out_probs_test_0, bins=10, alpha=0.5, label='Class 0 (Testing)', weights=[1]*len(out_probs_test_0), density=True, color='red')
+    plt.hist(out_probs_test_1, bins=10, alpha=0.5, label='Class 1 (Testing)', weights=[2.871]*len(out_probs_test_1), density=True, color='blue')
+    plt.hist(out_probs_train_0, bins=10, alpha=0.5, label='Class 0 (Training)', weights=[1]*len(out_probs_train_0), density=True, color='darkred', histtype='step', linewidth=2, linestyle="--")
+    plt.hist(out_probs_train_1, bins=10, alpha=0.5, label='Class 1 (Training)', weights=[2.871]*len(out_probs_train_1), density=True, color='midnightblue', histtype='step', linewidth=2, linestyle="--")
     plt.title('Histogram of Predictions')
     plt.xlabel('Prediction Probability')
     plt.ylabel('Normalized Count')
