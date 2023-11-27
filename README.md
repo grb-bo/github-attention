@@ -3,7 +3,7 @@ _A Graph Attention Network for the GitHub Dataset_
 
 | ![whole_graph](tasks/plots/whole_graph.jpg) | 
 |:--:| 
-| *The whole GitHub dataset, visualized as a graph in the Spring layout; nodes are colored accordingly to the community detected by the Louvain method.* |
+| *The whole GitHub dataset, visualized as a graph in the Spring layout; nodes are colored according to the communities detected by the Louvain method.* |
 
 ## Table of Contents
 - [Introduction](#introduction)
