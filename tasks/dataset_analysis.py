@@ -1,4 +1,4 @@
-def get_clustering_coefficient(label_value, clustering_coefficients_dict):
+def get_clustering_coefficient(label_value, clustering_coefficients_dict, node_labels):
     """
     - Selects the clustering coefficients belonging to a given class
 
@@ -9,6 +9,9 @@ def get_clustering_coefficient(label_value, clustering_coefficients_dict):
 
     clustering_coefficients_dict (dict)
         A dictionary containing nodes as keys and corresponding clustering coefficients as values.
+
+    node_labels (dict)
+        Dictionary with nodes as keys and corresponding label as value    
 
     Returns:
     ----------
@@ -130,7 +133,7 @@ def dataset_analysis(graph, node_labels):
     degrees_all = list(degree_dict.values())
 
     # Examine the clustering coefficients for each class
-    label_coefficient_dict = {label: get_clustering_coefficient(label, clustering_coefficients) for label in unique_labels}
+    label_coefficient_dict = {label: get_clustering_coefficient(label, clustering_coefficients, node_labels) for label in unique_labels}
     clustering_plot = evaluate_clustering_coefficients(label_coefficient_dict, 0.1)
     clustering_plot.savefig(f"{plotsdir}/Clustering.pdf")
 

@@ -41,7 +41,7 @@ def model_training(graph, node_labels):
     data.y = torch.tensor([node_labels[node] for node in graph.nodes()])  # Tensor containing the ground truths labels
 
     # Input of the model will be the feature tensor
-    data.x = torch.zeros(num_nodes, max_feature + 1) # data.x = torch.eye(data.num_nodes)
+    data.x = torch.zeros(num_nodes, max_feature + 1)
     for node in range(num_nodes):
         data.x[node] = torch.tensor(encoded_features_dict[str(node)])
 

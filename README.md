@@ -88,7 +88,7 @@ Aleatory factors play an important role when dealing with a community-finding al
 #### Local Clustering Coefficients
 Clustering coefficients tell if the neighbours of a node are also connected to each other. It is the most local indicator of density: a lower clustering coefficients implies that the node is less likely to be in a (local neighbourhood) group.  
 
-Both classes of this dataset exhibit a moderate clustering average, but it is evident that machine learning developers tend to clustering *less* than web developers.
+Both classes of this dataset exhibit a moderate clustering average, but it is evident that machine learning developers tend to cluster less than web developers.
 
 #### Degrees
 The degree of a node is the count of how many links it has to other nodes.
