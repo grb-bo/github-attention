@@ -37,6 +37,7 @@ To run the project on python instead of as a notebook, you first need to install
 networkx
 torch
 torch-geometric
+seaborn
 pyyaml
 ```
 

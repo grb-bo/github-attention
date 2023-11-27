@@ -1,4 +1,5 @@
 networkx
 torch
 torch-geometric
+seaborn
 pyyaml

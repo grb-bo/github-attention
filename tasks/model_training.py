@@ -37,7 +37,7 @@ def model_training(graph, node_labels):
     # PyTorch Geometric tensors
     #-----------------------------
 
-    data = from_networkx(graph)   # ~2/3 min on Colab GPU
+    data = from_networkx(graph)   
     data.y = torch.tensor([node_labels[node] for node in graph.nodes()])  # Tensor containing the ground truths labels
 
     # Input of the model will be the feature tensor
