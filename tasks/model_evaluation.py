@@ -4,6 +4,8 @@ def model_evaluation():
     # Setup
     #-----------------------------
 
+    print("Evaluating the model.")
+
     plotsdir = 'plots/model_evaluation'
     if not os.path.exists(plotsdir):
         os.makedirs(plotsdir)

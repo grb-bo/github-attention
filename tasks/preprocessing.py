@@ -14,6 +14,8 @@ def preprocessing():
     #-----------------------------
     # Data loading
     #-----------------------------
+    
+    print("Loading data and creating the graph.")
 
     # Load node labels
     labels_file = "data/git_targets.txt"

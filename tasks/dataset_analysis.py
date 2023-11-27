@@ -61,7 +61,7 @@ def evaluate_clustering_coefficients(coefficient_labels, threshold=0.1, bins=20)
         average_clustering_coefficient[label] = np.mean(coefficients)
     print("")
     for label, average in average_clustering_coefficient.items():
-    print(f"Total average clustering coefficient for Class {label}: {average:.4f}")
+        print(f"Total average clustering coefficient for Class {label}: {average:.4f}")
     print("")
     plt.title("Clustering Coefficients Histogram")
     plt.xlabel("Clustering Coefficient")

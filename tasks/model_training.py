@@ -25,6 +25,8 @@ class GATNet(torch.nn.Module):
 
 def model_training(graph, node_labels):
 
+    print("Preparing the data to set up the model.")
+
     plotsdir = 'plots/model_training'
     if not os.path.exists(plotsdir):
         os.makedirs(plotsdir)
@@ -77,6 +79,7 @@ def model_training(graph, node_labels):
     #-----------------------------
     # Training
     #-----------------------------
+    Print("Training the model.")
 
     n_epochs = 60
 
